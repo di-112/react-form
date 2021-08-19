@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import 'antd/dist/antd.css'
+import React, { useState } from 'react'
+import Form from './components/form/form'
+import Events from './components/events/events'
 
-function App() {
+const App = () => {
+  const [countEvent, setCountEvent] = useState(1)
+
+  const [data, setData] = useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Form setCountEvent={setCountEvent} setData={setData} countEvent={countEvent} />
+      {Object.keys(data).length ? <Events events={data} /> : ''}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

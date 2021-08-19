@@ -1,0 +1,41 @@
+form {
+  width: 50%;
+  text-align: center;
+
+  .event {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .current-date {
+    width: 100%;
+    margin: 15px 0 30px !important;
+    border-radius: 15px !important;
+  }
+  .event__name,
+  .event__date {
+    width: 30%;
+    min-width: 200px;
+    border-radius: 15px;
+  }
+}
+
+label {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0 20px;
+  text-align: right;
+}
+
+@media (max-width: 1500px) {
+  form .event {
+    display: block;
+  }
+  form {
+    .event__name,
+    .event__date {
+      width: 100%;
+    }
+  }
+}

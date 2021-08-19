@@ -1,0 +1,18 @@
+.sended-events {
+  color: white;
+  margin-top: 20px;
+  border: 2px solid white;
+  padding: 50px 100px;
+  border-radius: 15px;
+  @media (max-width: 550px) {
+    padding: 10px 50px;
+  }
+}
+
+.event {
+  margin-bottom: 20px;
+  font-size: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
