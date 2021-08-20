@@ -12,7 +12,7 @@ const App = () => {
   return (
     <div className="app">
       <Form setCountEvent={setCountEvent} setData={setData} countEvent={countEvent} />
-      {Object.keys(data).length ? <Events events={data} /> : ''}
+      {Object.keys(data).length ? <Events events={data} /> : ''} // лучше и надежнее возвращать null (React не будет ничего рисовать)
     </div>
   )
 }

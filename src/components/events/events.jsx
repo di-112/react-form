@@ -1,6 +1,8 @@
 import React from 'react'
 import './events.scss'
 
+// вот эту историю можно сделать без switch case и через проверку остатка от деления
+// не то, чтобы есть какие-то проблемы с твоим вариантом, просто говорю про еще один вариант
 const getWordForDiffDate = diffDate => {
   switch (diffDate) {
     case 0:
@@ -25,6 +27,7 @@ const getWordForDiffDate = diffDate => {
   }
 }
 
+// лучше все-таки два компонента в одном файле не хранить :-)
 const Events = ({ events }) => {
   return (
     <div className="sended-events">
@@ -49,7 +52,9 @@ const Event = ({ event }) => {
           <span>
             {event.diffDate > 1 ? (
               <>
-                через {event.diffDate} {wordForDays}
+              {/* тут лучше через шаблонную строку делать */}
+              {/* и, возможно, сделать тернарник перед span. так будет почище */}
+                через {event.diffDate} {wordForDays} 
               </>
             ) : (
               <>{wordForDays} </>
@@ -58,6 +63,7 @@ const Event = ({ event }) => {
         </>
       ) : (
         <>
+        {/* ну и тут лучше шаблонную строку */}
           <strong> Произошло {event.diffDate === 0 ? <>/ Произойдет </> : ''}</strong>
           <span>
             {event.diffDate === -1 || event.diffDate === 0 ? (

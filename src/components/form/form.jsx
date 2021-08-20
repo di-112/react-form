@@ -17,6 +17,9 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
     mode: 'onBlur',
   })
 
+  // вместо вот этой вот интересной истории, можно было бы использовать массив
+  // а еще лучше специальный метод из библиотки, который позволяет создавать массив полей
+  // называется useFieldArray
   const incrementCount = () => setCountEvent(prevCount => prevCount + 1)
 
   const decrementCount = () => {
@@ -25,10 +28,17 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
   }
 
   const submitData = data => {
+    // чтобы избежать удаления ключей, можно сделать вот так
+    // const { startDate, ...rest } = data;
+    // и в rest останется все, что тебе дальше нужно
     const startDate = data.startDate
 
     delete data.startDate
 
+    // вообще, изменение пропов считается плохой практикой
+    // лучше создавать новый объект (хотя бы поверхностную копию)
+    // а еще лучше было бы собрать это не в объект, чтобы не бегать по ключам, а массив
+    // в целом старайся коллекции одинаковых элементов делать массивами
     Object.keys(data).forEach(key => {
       data[key].diffDate = data[key].eventDate.diff(startDate, 'days')
       if (data[key].diffDate < 1) {
@@ -50,6 +60,8 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
         name="startDate"
         render={({ field }) => <DatePicker {...field} id="currDate" format={formatDate} className="current-date" />}
       />
+      {/* вот такие штуки лучше создавать заранее в переменной, а тут уже по ней бежать */}
+      {/* код будет почище */}
       {new Array(countEvent).fill('').map((_, index) => (
         <div style={{ marginBottom: '20px' }} key={index}>
           <div className="event">
