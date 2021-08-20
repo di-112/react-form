@@ -29,6 +29,10 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
 
     Object.keys(data).forEach(key => {
       data[key].diffDate = data[key].eventDate.diff(startDate, 'days')
+      if (data[key].diffDate < 1) {
+        if (data[key].eventDate.format('DD-MM-YYYY') !== startDate.format('DD-MM-YYYY')) data[key].diffDate = data[key].diffDate - 1
+      }
+
       data[key].eventDate = data[key].eventDate.format('DD-MM-YYYY')
     })
 
@@ -40,8 +44,8 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
       <label htmlFor="currDate">Дата отсчета:</label>
       <Controller
         control={control}
-        name="startDate"
         defaultValue={moment()}
+        name="startDate"
         render={({ field }) => <DatePicker {...field} id="currDate" format={'DD-MM-YYYY'} className="current-date" />}
       />
       {new Array(countEvent).fill('').map((_, index) => (

@@ -1,6 +1,30 @@
 import React from 'react'
 import './events.scss'
 
+const getWordForDiffDate = diffDate => {
+  switch (diffDate) {
+    case 0:
+      return 'сегодня'
+
+    case 1:
+      return 'завтра'
+
+    case -1:
+      return 'вчера'
+
+    case 2:
+    case 3:
+    case 4:
+    case -2:
+    case -3:
+    case -4:
+      return 'дня'
+
+    default:
+      return 'дней'
+  }
+}
+
 const Events = ({ events }) => {
   return (
     <div className="sended-events">
@@ -12,24 +36,7 @@ const Events = ({ events }) => {
 }
 
 const Event = ({ event }) => {
-  let wordForDays
-
-  switch (event.diffDate) {
-    case 1: {
-      wordForDays = 'день'
-      break
-    }
-    case 2:
-    case 3:
-    case 4: {
-      wordForDays = 'дня'
-      break
-    }
-
-    default:
-      wordForDays = 'дней'
-      break
-  }
+  let wordForDays = getWordForDiffDate(event.diffDate)
 
   return (
     <div className="event">
@@ -38,19 +45,29 @@ const Event = ({ event }) => {
 
       {event.diffDate > 0 ? (
         <>
-          {' '}
-          <strong>Произойдет через </strong>
+          <strong> Произойдет </strong>
           <span>
-            {event.diffDate} {wordForDays}
-          </span>{' '}
+            {event.diffDate > 1 ? (
+              <>
+                через {event.diffDate} {wordForDays}
+              </>
+            ) : (
+              <>{wordForDays} </>
+            )}
+          </span>
         </>
       ) : (
         <>
-          {' '}
-          <strong>Произошло </strong>
+          <strong> Произошло {event.diffDate === 0 ? <>/Произойдет </> : ''}</strong>
           <span>
-            {Math.abs(event.diffDate)} {wordForDays} назад
-          </span>{' '}
+            {event.diffDate === -1 || event.diffDate === 0 ? (
+              <>{wordForDays} </>
+            ) : (
+              <>
+                {Math.abs(event.diffDate)} {wordForDays} назад
+              </>
+            )}
+          </span>
         </>
       )}
     </div>
