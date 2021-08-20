@@ -5,15 +5,12 @@ import Form from './components/form/form'
 import Events from './components/events/events'
 
 const App = () => {
-  const [countEvent, setCountEvent] = useState(1)
-
-  const [data, setData] = useState({})
+  const [data, setData] = useState()
 
   return (
     <div className="app">
-      <Form setCountEvent={setCountEvent} setData={setData} countEvent={countEvent} />
-      // лучше и надежнее возвращать null (React не будет ничего рисовать)
-      {Object.keys(data).length ? <Events events={data} /> : ''}
+      <Form setData={setData} />
+      {data ? <Events events={data} /> : null}
     </div>
   )
 }
