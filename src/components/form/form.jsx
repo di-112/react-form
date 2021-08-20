@@ -5,6 +5,8 @@ import ButtonsPanel from '../buttonsPanel/buttonsPanel'
 import { Controller, useForm } from 'react-hook-form'
 import './form.scss'
 
+const formatDate = 'DD-MM-YYYY'
+
 const Form = ({ setCountEvent, setData, countEvent }) => {
   const {
     handleSubmit,
@@ -30,10 +32,10 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
     Object.keys(data).forEach(key => {
       data[key].diffDate = data[key].eventDate.diff(startDate, 'days')
       if (data[key].diffDate < 1) {
-        if (data[key].eventDate.format('DD-MM-YYYY') !== startDate.format('DD-MM-YYYY')) data[key].diffDate = data[key].diffDate - 1
+        if (data[key].eventDate.format(formatDate) !== startDate.format(formatDate)) data[key].diffDate = data[key].diffDate - 1
       }
 
-      data[key].eventDate = data[key].eventDate.format('DD-MM-YYYY')
+      data[key].eventDate = data[key].eventDate.format(formatDate)
     })
 
     setData(data)
@@ -46,7 +48,7 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
         control={control}
         defaultValue={moment()}
         name="startDate"
-        render={({ field }) => <DatePicker {...field} id="currDate" format={'DD-MM-YYYY'} className="current-date" />}
+        render={({ field }) => <DatePicker {...field} id="currDate" format={formatDate} className="current-date" />}
       />
       {new Array(countEvent).fill('').map((_, index) => (
         <div style={{ marginBottom: '20px' }} key={index}>
@@ -66,7 +68,7 @@ const Form = ({ setCountEvent, setData, countEvent }) => {
               name={`${index}.eventDate`}
               control={control}
               rules={{ required: true }}
-              render={({ field }) => <DatePicker {...field} id="eventDate" format={'DD-MM-YYYY'} className="event__date" />}
+              render={({ field }) => <DatePicker {...field} id="eventDate" format={formatDate} className="event__date" />}
             />
           </div>
           {errors[`${index}`] ? errors[`${index}`].event && <div className="error">Ведите название события</div> : ''}

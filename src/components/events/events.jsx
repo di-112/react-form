@@ -58,7 +58,7 @@ const Event = ({ event }) => {
         </>
       ) : (
         <>
-          <strong> Произошло {event.diffDate === 0 ? <>/Произойдет </> : ''}</strong>
+          <strong> Произошло {event.diffDate === 0 ? <>/ Произойдет </> : ''}</strong>
           <span>
             {event.diffDate === -1 || event.diffDate === 0 ? (
               <>{wordForDays} </>
