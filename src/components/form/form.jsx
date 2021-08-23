@@ -35,12 +35,9 @@ const Form = ({ setData }) => {
   const removeField = () => remove(fields.length - 1)
 
   const submitData = data => {
-    console.log(data)
     const { startDate, events } = data
     events.forEach(event => {
       event.duration = event.date.diff(startDate, 'days')
-      console.log(event.duration)
-      console.log(startDate)
       if (event.duration < 1) {
         if (event.date.format(formatDate) !== startDate.format(formatDate)) event.duration = event.duration - 1
       }
