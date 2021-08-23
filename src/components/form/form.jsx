@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import moment from 'moment'
-import { Button, DatePicker, Input } from 'antd'
+import { DatePicker, Input } from 'antd'
 import ButtonsPanel from '../buttonsPanel/buttonsPanel'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import './form.scss'
@@ -22,7 +22,7 @@ const Form = ({ setData }) => {
     mode: 'onBlur',
   })
 
-  const { fields, append, remove, insert } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'events',
   })
