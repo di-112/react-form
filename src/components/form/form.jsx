@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react'
 import moment from 'moment'
-import { DatePicker, Input } from 'antd'
+import { Button, DatePicker, Input } from 'antd'
 import ButtonsPanel from '../buttonsPanel/buttonsPanel'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import './form.scss'
 import Errors from '../errors/errors'
 
 const formatDate = 'DD-MM-YYYY'
+
+const defaultEvent = {
+  name: 'event',
+  date: moment(),
+}
 
 const Form = ({ setData }) => {
   const {
@@ -17,18 +22,21 @@ const Form = ({ setData }) => {
     mode: 'onBlur',
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, insert } = useFieldArray({
     control,
     name: 'events',
   })
 
-  useEffect(() => append({}), [])
+  useEffect(() => {
+    if (!fields.length) append(defaultEvent)
+  }, [])
 
-  const addField = () => append({})
+  const addField = () => append(defaultEvent)
 
-  const removeField = () => remove(0)
+  const removeField = () => remove(fields.length - 1)
 
   const submitData = data => {
+    console.log(data)
     const { startDate, events } = data
     events.forEach(event => {
       event.duration = event.date.diff(startDate, 'days')
@@ -50,8 +58,8 @@ const Form = ({ setData }) => {
         render={({ field }) => <DatePicker {...field} id="currDate" format={formatDate} className="current-date" />}
       />
 
-      {fields.map((_, index) => (
-        <div style={{ marginBottom: '20px' }} key={index}>
+      {fields.map((field, index) => (
+        <div style={{ marginBottom: '20px' }} key={field.id}>
           <div className="event">
             <label htmlFor="eventName">Название события: </label>
             <Controller

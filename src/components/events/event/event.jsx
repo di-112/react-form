@@ -4,26 +4,21 @@ import FutureEventText from './futureEventText/futureEventText'
 import PastEventText from './pastEventText/pastEventText'
 
 const getWordForDiffDate = diffDate => {
-  switch (diffDate) {
-    case 0:
-      return 'сегодня'
-
-    case 1:
-      return 'завтра'
-
-    case -1:
-      return 'вчера'
-
-    case 2:
-    case 3:
-    case 4:
-    case -2:
-    case -3:
-    case -4:
-      return 'дня'
-
-    default:
-      return 'дней'
+  if (diffDate === 0) return 'сегодня'
+  else if (diffDate === 1) return 'завтра'
+  else if (diffDate === -1) return 'вчера'
+  else if (diffDate > 10 && diffDate < 15) return 'дней'
+  else {
+    switch (Math.abs(diffDate) % 10) {
+      case 1:
+        return 'день'
+      case 2:
+      case 3:
+      case 4:
+        return 'дня'
+      default:
+        return 'дней'
+    }
   }
 }
 
