@@ -36,6 +36,8 @@ const Form = ({ setData }) => {
 
   const submitData = data => {
     const { startDate, events } = data
+    // я бы не мутировал, а создавал новый массив через map. 
+    // потому что технически ты все еще мутируешь аргументы функции, так как оно тут все по ссылке передается
     events.forEach(event => {
       event.duration = event.date.diff(startDate, 'days')
       if (event.duration < 1) {
