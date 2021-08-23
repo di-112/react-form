@@ -10,7 +10,6 @@ const App = () => {
   return (
     <div className="app">
       <Form setData={setData} />
-      {/* вот так еще короче) */}
       {data && <Events events={data} />}
     </div>
   )
